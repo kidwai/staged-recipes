@@ -1,0 +1,42 @@
+# Note: there are many handy hints in comments in this example -- remove them when you've finalized your recipe
+
+# Jinja variables help maintain the recipe as you'll update the version only here.
+# Using the name variable with the URL in line 13 is conviniet
+# when copying and pasting from another recipe, but not really needed.
+{% set name = "geth" %}
+{% set version = "1.8.20" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/ethereum/go-ethereum/archive/v1.8.20.tar.gz
+  sha256: 7299f72a1d35a2653075a2070babf78f98f6eb3f41da43293304737ac0156658
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - go
+    - make
+
+
+
+test:
+  commands:
+    - geth version
+
+about:
+  home: https://github.com/ethereum/go-ethereum
+  license: LGPL-3.0
+  license_family: GPL
+  license_file: LICENSE
+  summary: 'The official golang implementation of ethereum'
+
+
+extra:
+  recipe-maintainers:
+    - kidwai
